@@ -18,6 +18,6 @@ All project documents are in the [Project Wiki](../../wiki/Home).
 - [Vision Statement](../../wiki/Vision%20Statement)
 - [Requirements](../../wiki/Requirements)
 - [Development Plan](../../wiki/Development%20Plan)
-- [Iteration 1 Plan](../../wiki/Iteration%201%20Plan) and [Task Board](../../projects/1/views/1)
+- [Iteration 1 Plan](../../wiki/Iteration%201%20Plan) and [Task Board](https://github.com/users/ReggieReo/projects/1/views/1)
 
 [django-tutorial]: (https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Tutorial_local_library_website)
