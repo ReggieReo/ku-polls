@@ -1,0 +1,110 @@
+/* Center the list at the top of the screen horizontally */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh; /* Ensure the body covers the entire viewport height */
+  padding-top: 20px; /* Adjust the padding for top spacing */
+  background: white url("images/background.png") no-repeat;
+}
+
+/* Style the container div */
+.container {
+  text-align: center;
+  width: 100%;
+}
+
+/* Style the unordered list */
+ul {
+  list-style-type: none;
+  padding: 0;
+  border: 2px solid #ccc; /* Increase the border size */
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px);
+  border-radius: 10px;
+  display: inline-block; /* Display the list as inline-block to center it */
+}
+
+/* Style list items */
+li {
+  padding: 15px; /* Adjust the padding to add more space between text and border */
+}
+
+/* Style links */
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+/* Hover effect for links */
+a:hover {
+  color: #555;
+}
+
+/* Style the form */
+form {
+  background: rgba(255, 255, 255, 0.8); /* Transparent background */
+  backdrop-filter: blur(5px); /* Apply a blur effect to the form background */
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px; /* Add spacing between the list and the form */
+  max-width: 400px; /* Adjust the maximum width of the form */
+}
+
+/* Style fieldset and legend */
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+legend h1 {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+/* Style radio buttons and labels */
+input[type="radio"] {
+  margin-right: 5px; /* Add spacing between radio buttons and labels */
+}
+
+/* Style submit button */
+input[type="submit"] {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Hover effect for submit button */
+input[type="submit"]:hover {
+  background-color: #555;
+}
+
+/* Style radio buttons and labels */
+input[type="radio"] {
+  margin-right: 5px; /* Add spacing between radio buttons and labels */
+}
+
+/* Increase vertical spacing between choices */
+label {
+  margin-bottom: 300px; /* Adjust the margin-bottom as needed for more space */
+}
+
+/* Style submit button */
+input[type="submit"] {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Hover effect for submit button */
+input[type="submit"]:hover {
+  background-color: #555;
+}
