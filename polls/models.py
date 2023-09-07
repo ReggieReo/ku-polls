@@ -13,7 +13,7 @@ class Question(models.Model):
     """
 
     question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField("date published", auto_now_add=False)
+    pub_date = models.DateTimeField("date published", default=timezone.now)
     end_date = models.DateTimeField("end date", null=True, blank=True, default=None)
 
     def was_published_recently(self):
