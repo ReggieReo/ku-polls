@@ -8,10 +8,13 @@ class Question(models.Model):
     A class representing a question in a poll with attributes:
         question_text : The text of the question.
         pub_date : The date and time when the question was published.
+        end_date : The date and time of the last day of voting period,
+        if it is null, then voting is allowed anytime after pub_date.
     """
 
     question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField("date published")
+    pub_date = models.DateTimeField("date published", auto_now_add=False)
+    end_date = models.DateTimeField("end date", null=True, blank=True, default=None)
 
     def was_published_recently(self):
         """
