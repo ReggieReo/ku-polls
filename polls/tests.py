@@ -37,6 +37,64 @@ class QuestionModelTest(TestCase):
         recent_question = Question(pub_date=time)
         self.assertIs(recent_question.was_published_recently(), True)
 
+    def test_is_published_with_unpublished_future_question(self):
+        """
+        is_published() return false when pub_date is in the future
+        """
+        time = timezone.now() + datetime.timedelta(days=1)
+        future_question = Question(pub_date=time)
+        self.assertFalse(future_question.is_published())
+
+    def test_is_published_with_defualt_question(self):
+        """
+        is_published() return true for the question of defualt pub_date
+        """
+        new_question = Question()
+        self.assertTrue(new_question.is_published())
+
+    def test_is_published_with_published_question(self):
+        """
+        is_published() return true for the question that already published
+        """
+        time = timezone.now() - datetime.timedelta(days=4)
+        published_question = Question(pub_date=time)
+        self.assertTrue(published_question.is_published())
+
+    def test_can_vote_with_published_question_no_end_date(self):
+        """
+        can_vote() return true for question that is published with no end date
+        """
+        p_time = timezone.now() - datetime.timedelta(days=5)
+        question = Question(pub_date=p_time)
+        self.assertTrue(question.can_vote())
+
+    def test_can_vote_with_published_question_with_end_date(self):
+        """
+        can_vote() return True with the published question that hasn't
+        reach end date
+        """
+        p_time = timezone.now() - datetime.timedelta(days=5)
+        e_time = timezone.now() + datetime.timedelta(days=5)
+        question = Question(pub_date=p_time, end_date=e_time)
+        self.assertTrue(question.can_vote())
+
+    def test_can_vote_with_question_pass_end_date(self):
+        """
+        can_vote() return false with the question that has past end date
+        """
+        p_time = timezone.now() - datetime.timedelta(days=5)
+        e_time = timezone.now() - datetime.timedelta(days=3)
+        question = Question(pub_date=p_time, end_date=e_time)
+        self.assertFalse(question.can_vote())
+
+    def test_can_vote_with_defualt_published_date(self):
+        """
+        can_vote() return True with the question with defualt pub_date
+        and end date
+        """
+        question = Question()
+        self.assertTrue(question.can_vote())
+
 
 def create_question(question_text, days):
     """
