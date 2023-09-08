@@ -1,28 +1,21 @@
-/* Center the list at the top of the screen horizontally */
 body {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh; /* Ensure the body covers the entire viewport height */
-  padding-top: 20px; /* Adjust the padding for top spacing */
+  text-align: center; /* Center align text within the body */
+  min-height: 100vh;
+  padding-top: 20px;
   background: white url("images/background.png") no-repeat;
-}
-
-/* Style the container div */
-.container {
-  text-align: center;
-  width: 100%;
 }
 
 /* Style the unordered list */
 ul {
   list-style-type: none;
   padding: 0;
-  border: 2px solid #ccc; /* Increase the border size */
+  border: 2px solid #ccc;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(5px);
   border-radius: 10px;
-  display: inline-block; /* Display the list as inline-block to center it */
+  display: inline-block;
+  align-items: center; /* Center the list horizontally */
+  
 }
 
 /* Style list items */
@@ -107,4 +100,8 @@ input[type="submit"] {
 /* Hover effect for submit button */
 input[type="submit"]:hover {
   background-color: #555;
+}
+
+.message {
+  text-align: center;
 }

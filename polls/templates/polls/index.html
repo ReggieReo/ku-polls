@@ -1,7 +1,7 @@
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'polls/style.css' %}">
-
+<div>
 {% if latest_question_list %}
 <ul>
   {% for question in latest_question_list %}
@@ -15,3 +15,15 @@
 {% else %}
 <p>No polls are available.</p>
 {% endif %}
+
+<div class="message centered-message">
+{% if messages %}
+<ul class="error_messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+</div>
+
+</div>
