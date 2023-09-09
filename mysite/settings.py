@@ -30,7 +30,7 @@ DEBUG = config("DEBUG", default=True, cast=bool)
 
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS",
-    default=["*.ku.th", "localhost", "127.0.0.1", "::1", "testserver"],
+    default="*.ku.th, localhost, 127.0.0.1, ::1, testserver",
     cast=lambda a: [s.strip() for s in a.split(",")],
 )
 
