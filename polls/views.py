@@ -1,7 +1,6 @@
 from django.utils import timezone
-from django.db.models.query import QuerySet
 from django.shortcuts import render, get_object_or_404
-from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.contrib import messages
