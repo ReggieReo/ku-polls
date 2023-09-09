@@ -33,6 +33,10 @@ class DetailView(generic.DetailView):
         return Question.objects.filter(pub_date__lte=timezone.now())
 
     def get(self, request, pk):
+        """
+        Return get request from the user. If the requested question does not 
+        exist or published redirect to index page.
+        """
         try:
             selected_question = get_object_or_404(Question, pk=pk)
         except Http404:
@@ -57,6 +61,10 @@ class ResultsView(generic.DetailView):
 
 
 def vote(request, question_id):
+    """
+    Add vote count to voted choice, and show error message to user if user
+    doesn't select any choice.
+    """
     question = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = question.choice_set.get(pk=request.POST["choice"])
