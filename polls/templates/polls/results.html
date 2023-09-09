@@ -1,99 +1,102 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'polls/style.css' %}" />
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Poll Results</title>
   <!-- Include Chart.js from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <h1>{{ question.question_text }}</h1>
-{% comment %} </head>
-<body>
+  <body>
+    <div class="results">
+      <!-- Create a canvas element for the bar graph -->
+      <canvas id="barChart"><h1></h1></canvas><br />
+      <a href="{% url 'polls:index' %}"> Back to List of Polls</a>
 
-  <ul>
-    {% for choice in question.choice_set.all %}
-    <li>
-      {{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize  }}
-    </li>
-    {% endfor %}
-  </ul> {% endcomment %}
-
-  <!-- Create a canvas element for the bar graph -->
-  <canvas id="barChart" width="200" height="100"></canvas>
-
-  <a href="{% url 'polls:detail' question.id %}">Vote again?</a>
-
-  <script>
-    // Get the data for the bar graph from your Django template variables
-    var questionText = "{{ question.question_text }}";
-    var choices = [
-      {% for choice in question.choice_set.all %}
-      {
-        label: "{{ choice.choice_text }}",
-        votes: {{ choice.votes }},
-        backgroundColor: getRandomColor(), // Generate a random color for each choice
-      },
-      {% endfor %}
-    ];
-
-    // Extract labels and votes for the chart
-    var labels = choices.map(function (choice) {
-      return choice.label;
-    });
-    var votes = choices.map(function (choice) {
-      return choice.votes;
-    });
-
-    // Function to generate a random color
-    function getRandomColor() {
-      var letters = '0123456789ABCDEF';
-      var color = '#';
-      for (var i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
-    }
-
-    // Create a bar chart
-    var ctx = document.getElementById('barChart').getContext('2d');
-    var barChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: 'Votes',
-          data: votes,
-          backgroundColor: choices.map(function (choice) {
-            return choice.backgroundColor;
-          }), // Use the specified background color for each choice
-          borderColor: 'rgba(75, 192, 192, 1)', // Customize the border color
-          borderWidth: 1, // Customize the border width
-        }],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
+      <script>
+        // Get the data for the bar graph from your Django template variables
+        var questionText = "{{ question.question_text }}";
+        var choices = [
+          {% for choice in question.choice_set.all %}
+          {
+            label: "{{ choice.choice_text }}",
+            votes: {{ choice.votes }},
+            backgroundColor: getRandomColor(),
           },
-        },
-        plugins: {
-          legend: {
-            display: false, // Display the legend
+          {% endfor %}
+        ];
+        // Extract labels and votes for the chart
+        var labels = choices.map(function (choice) {
+          return choice.label;
+        });
+        var votes = choices.map(function (choice) {
+          return choice.votes;
+        });
+
+        // Function to generate a random color
+        function getRandomColor() {
+          var letters = '0123456789ABCDEF';
+          var color = '#';
+          for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+          }
+          return color;
+        }
+
+        // Create a bar chart
+        var ctx = document.getElementById('barChart').getContext('2d');
+        var barChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Votes',
+              data: votes,
+              backgroundColor: choices.map(function (choice) {
+                return choice.backgroundColor;
+              }),
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 1,
+            }],
           },
-          title: {
-            display: true,
-            text: questionText,
+          options: {
+            scales: {
+              y: {
+                ticks: {
+                beginAtZero: true,
+                stepSize: 1
+                }, // Display only whole numbers on the y-axis
+              },
+              x: {
+                ticks: {
+                    font: {
+                        size: 20,
+                    }
+                },
+              },
+            },
+            plugins: {
+              legend: {
+                display: false,
+              },
+              title: {
+                display: true,
+                text: questionText,
+                font: {
+                        size: 30
+                    }
+              },
+              customLabel: {
+                display: true,
+                text: choices.map(function (choice) {
+                  return choice.label + ' - ' + choice.votes + ' vote' + (choice.votes === 1 ? '' : 's');
+                }).join(', '),
+              },
+            },
           },
-          // Add a custom label below the title
-          customLabel: {
-            display: true,
-            text: choices.map(function (choice) {
-              return choice.label + ' - ' + choice.votes + ' vote' + (choice.votes === 1 ? '' : 's');
-            }).join(', '),
-          },
-        },
-      },
-    });
-  </script>
-</body>
+        });
+      </script>
+    </div>
+  </body>
 </html>
