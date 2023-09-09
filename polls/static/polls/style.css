@@ -3,15 +3,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  min-height: 100vh; /* Ensure the body covers the entire viewport height */
-  padding-top: 20px; /* Adjust the padding for top spacing */
+  min-height: 100vh;
+  padding-top: 20px;
   background: white url("images/background.png") no-repeat;
 }
 
-/* Style the container div */
-.container {
-  text-align: center;
-  width: 100%;
+* {
+ font-family: Arial;
 }
 
 /* Style the unordered list */
@@ -23,6 +21,7 @@ ul {
   backdrop-filter: blur(5px);
   border-radius: 10px;
   display: inline-block; /* Display the list as inline-block to center it */
+  text-align: center;
 }
 
 /* Style list items */
@@ -89,11 +88,6 @@ input[type="radio"] {
   margin-right: 5px; /* Add spacing between radio buttons and labels */
 }
 
-/* Increase vertical spacing between choices */
-label {
-  margin-bottom: 300px; /* Adjust the margin-bottom as needed for more space */
-}
-
 /* Style submit button */
 input[type="submit"] {
   background-color: #333;
@@ -107,4 +101,86 @@ input[type="submit"] {
 /* Hover effect for submit button */
 input[type="submit"]:hover {
   background-color: #555;
+}
+
+/* Styling for the <a> element within .results */
+.detail a {
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none; /* Remove underline for links */
+  display: inline-block; /* Make the link a block-level element */
+  margin: 3px; /* Add some spacing around the link */
+  font-size: medium;
+}
+
+.detail input[type="submit"] {
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none; /* Remove underline for links */
+  display: inline-block; /* Make the link a block-level element */
+  margin: 3px; /* Add some spacing around the link */
+  font-size: medium;
+}
+
+.detail label {
+  font-size: 20px;
+}
+
+.detail input {
+  margin-top: 10;
+  margin-bottom: 10;
+}
+
+.detail h1 {
+  font-size: 24;
+  margin-bottom: 10px;
+}
+
+.results canvas {
+  padding: 0;
+  border: 2px solid #ccc; /* Increase the border size */
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px);
+  border-radius: 10px;
+  width: 1000pt; /* Adjust the width as needed */
+  height: 1800pt; /* Adjust the height as needed */
+  font-size: large;
+}
+
+.results a {
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none; /* Remove underline for links */
+  display: inline-block; /* Make the link a block-level element */
+  margin: 3px; /* Add some spacing around the link */
+  font-size: xx-large;
+}
+
+.index {
+  font-size: x-large;
+}
+
+.index .index_a a {
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none; /* Remove underline for links */
+  display: inline-block; /* Make the link a block-level element */
+  margin: 3px; /* Add some spacing around the link */
+  font-size: medium;
 }
