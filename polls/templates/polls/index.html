@@ -4,6 +4,12 @@
 <div class="index">
 {% if latest_question_list %}
 <ul>
+  {% if user.is_authenticated %}
+    <p>Welcome back, {{user.username}}</p>
+  {% else %}
+    Please <a href="{% url 'login' %}">Login</a> to vote
+  {% endif %}
+
   {% for question in latest_question_list %}
   <li>
     <a href="{% url 'polls:detail' question.id %}"
