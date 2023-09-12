@@ -21,7 +21,7 @@
           {% for choice in question.choice_set.all %}
           {
             label: "{{ choice.choice_text }}",
-            votes: {{ choice.votes }},
+            votes: {{ choice.vote }},
             backgroundColor: getRandomColor(),
           },
           {% endfor %}
