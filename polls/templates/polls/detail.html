@@ -14,7 +14,7 @@
       type="radio"
       name="choice"
       id="choice{{ forloop.counter }}"
-      value="{{ choice.id }}"
+      value="{{ choice.id }}"{% if choice == select_choice %}checked{% endif %}
     />
     <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
     {% endfor %}
@@ -23,5 +23,5 @@
     <br />
     <a href="{% url 'polls:results' question.id %}">Results</a><br />
     <a href="{% url 'polls:index' %}"> Back to List of Polls</a>
-</form>
+  </form>
 </div>

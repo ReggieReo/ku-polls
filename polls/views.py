@@ -35,14 +35,32 @@ class DetailView(generic.DetailView):
 
     def get(self, request, pk):
         """
-        Return get request from the user. If the requested question does not 
+        Return get request from the user. If the requested question does not
         exist or published redirect to index page.
         """
+        this_user = request.user
+
         try:
             selected_question = get_object_or_404(Question, pk=pk)
         except Http404:
             messages.error(request, "The Question does not exist.")
             return HttpResponseRedirect(reverse("polls:index"))
+
+        # make select_choice variable for showing previous selected choice
+        if not this_user.is_authenticated:
+            select_choice = ""
+        else:
+            try:
+                # find a vote for this user
+                vote = Vote.objects.get(
+                    user=this_user, choice__question=selected_question
+                )
+                # set previous selected choice
+                select_choice = vote.choice
+            except Vote.DoesNotExist:
+                # if user has not selected any choice set to empty string
+                select_choice = ""
+
         if not (selected_question.is_published() or selected_question.can_vote()):
             messages.error(request, "The Question is not published yet.")
             return HttpResponseRedirect(reverse("polls:index"))
@@ -52,6 +70,7 @@ class DetailView(generic.DetailView):
                 self.template_name,
                 {
                     "question": selected_question,
+                    "select_choice": select_choice,
                 },
             )
 
@@ -60,6 +79,7 @@ class ResultsView(generic.DetailView):
     model = Question
     template_name = "polls/results.html"
 
+
 @login_required
 def vote(request, question_id):
     """
@@ -67,10 +87,10 @@ def vote(request, question_id):
     doesn't select any choice.
     """
     question = get_object_or_404(Question, pk=question_id)
-    
+
     if not question.can_vote():
-            messages.error(request, "The Question is not published yet.")
-            return HttpResponseRedirect(reverse("polls:index"))
+        messages.error(request, "The Question is not published yet.")
+        return HttpResponseRedirect(reverse("polls:index"))
 
     try:
         selected_choice = question.choice_set.get(pk=request.POST["choice"])
@@ -84,17 +104,18 @@ def vote(request, question_id):
                 "error_message": "You didn't select a choice.",
             },
         )
+
     this_user = request.user
     try:
         # find a vote for this user
         vote = Vote.objects.get(user=this_user, choice__question=question)
         # update his vote
         vote.choice = selected_choice
-    except(Vote.DoesNotExist):
+    except Vote.DoesNotExist:
         # no matching vote -- create a new vote
         vote = Vote(user=this_user, choice=selected_choice)
 
     vote.save()
     # TODO: Use messages to display a confirmation on the results page.
-        
+
     return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
