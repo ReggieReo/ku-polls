@@ -10,9 +10,21 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <body>
     <div class="results">
+      
+      <div class="logout">
+        {% if user.is_authenticated %}
+          <p>Welcome back {{user.username}}</a>, <a href="{% url 'logout' %}">Logout</a></p>
+        {% else %}
+          Please <a href="{% url 'login' %}">Login</a> to vote
+        {% endif %}
+      </div>
+      
       <!-- Create a canvas element for the bar graph -->
       <canvas id="barChart"><h1></h1></canvas><br />
-      <a href="{% url 'polls:index' %}"> Back to List of Polls</a>
+
+      <div class="back">
+        <a href="{% url 'polls:index' %}"> Back to List of Polls</a>
+      </div>
 
       <script>
         // Get the data for the bar graph from your Django template variables

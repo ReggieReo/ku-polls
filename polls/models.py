@@ -66,7 +66,6 @@ class Choice(models.Model):
     @property
     def vote(self):
         """count the votes for this choice"""
-        # count = Vote.objects.filter(Choice=self).count()
         count = self.vote_set.count()
         return count
 

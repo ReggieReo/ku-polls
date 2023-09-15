@@ -104,7 +104,7 @@ input[type="submit"]:hover {
 }
 
 /* Styling for the <a> element within .results */
-.detail a {
+.detail .back a {
   background-color: #333;
   color: white;
   padding: 5px 10px;
@@ -115,6 +115,10 @@ input[type="submit"]:hover {
   display: inline-block; /* Make the link a block-level element */
   margin: 3px; /* Add some spacing around the link */
   font-size: medium;
+}
+
+.detail .logout p {
+  font-size: x-large;
 }
 
 .detail input[type="submit"] {
@@ -155,7 +159,7 @@ input[type="submit"]:hover {
   font-size: large;
 }
 
-.results a {
+.results .back a {
   background-color: #333;
   color: white;
   padding: 5px 10px;
@@ -166,6 +170,10 @@ input[type="submit"]:hover {
   display: inline-block; /* Make the link a block-level element */
   margin: 3px; /* Add some spacing around the link */
   font-size: xx-large;
+}
+
+.results .logout p {
+  font-size: x-large;
 }
 
 .index {
