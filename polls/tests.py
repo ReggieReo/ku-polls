@@ -188,29 +188,26 @@ class QuestionDetailViewTests(TestCase):
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
 
-class UserAuthTest(TestCase):
 
+class UserAuthTest(TestCase):
     def setUp(self):
         # superclass setUp creates a Client object and initializes test database
         super().setUp()
         self.username = "testuser"
         self.password = "FatChance!"
         self.user1 = User.objects.create_user(
-                         username=self.username,
-                         password=self.password,
-                         email="testuser@nowhere.com"
-                         )
+            username=self.username, password=self.password, email="testuser@nowhere.com"
+        )
         self.user1.first_name = "Tester"
         self.user1.save()
         # we need a poll question to test voting
         q = Question.objects.create(question_text="First Poll Question")
         q.save()
         # a few choices
-        for n in range(1,4):
+        for n in range(1, 4):
             choice = Choice(choice_text=f"Choice {n}", question=q)
             choice.save()
         self.question = q
-
 
     def test_logout(self):
         """A user can logout using the logout url.
@@ -226,16 +223,15 @@ class UserAuthTest(TestCase):
         # user user with a session.  Setting client.user = ... doesn't work.
         # Use Client.login(username, password) to do that.
         # Client.login returns true on success
-        self.assertTrue( 
-              self.client.login(username=self.username, password=self.password)
-                       )
+        self.assertTrue(
+            self.client.login(username=self.username, password=self.password)
+        )
         # visit the logout page
         response = self.client.get(logout_url)
         self.assertEqual(302, response.status_code)
-        
+
         # should redirect us to where? Polls index? Login?
         self.assertRedirects(response, reverse(settings.LOGOUT_REDIRECT_URL))
-
 
     def test_login_view(self):
         """A user can login using the login view."""
@@ -245,15 +241,12 @@ class UserAuthTest(TestCase):
         self.assertEqual(200, response.status_code)
         # Can login using a POST request
         # usage: client.post(url, {'key1":"value", "key2":"value"})
-        form_data = {"username": "testuser", 
-                     "password": "FatChance!"
-                    }
+        form_data = {"username": "testuser", "password": "FatChance!"}
         response = self.client.post(login_url, form_data)
         # after successful login, should redirect browser somewhere
         self.assertEqual(302, response.status_code)
         # should redirect us to the polls index page ("polls:index")
         self.assertRedirects(response, reverse(settings.LOGIN_REDIRECT_URL))
-
 
     def test_auth_required_to_vote(self):
         """Authentication is required to submit a vote.
@@ -263,7 +256,7 @@ class UserAuthTest(TestCase):
         then I am redirected to the login page
           or I receive a 403 response (FORBIDDEN)
         """
-        vote_url = reverse('polls:vote', args=[self.question.id])
+        vote_url = reverse("polls:vote", args=[self.question.id])
 
         # what choice to vote for?
         choice = self.question.choice_set.first()
@@ -277,8 +270,7 @@ class UserAuthTest(TestCase):
         # How to fix it?
         # self.assertRedirects(response, reverse('login') )
 
-        # add ?next=/polls/1/vote/ to reverse('login') login successful 
+        # add ?next=/polls/1/vote/ to reverse('login') login successful
         # using format string to fix the problem
         login_with_next = f"{reverse('login')}?next={vote_url}"
-        self.assertRedirects(response, login_with_next )
-
+        self.assertRedirects(response, login_with_next)

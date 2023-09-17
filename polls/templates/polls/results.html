@@ -24,8 +24,17 @@
         <canvas id="barChart"></canvas><br />
 
         <div class="back">
+        {% if messages %}
+        <ul class="error_messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}, <a href="{% url 'polls:index' %}"> Back to List of Polls</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
             <a href="{% url 'polls:index' %}"> Back to List of Polls</a>
+        {% endif %}
         </div>
+
     </div>
 
     <script>
