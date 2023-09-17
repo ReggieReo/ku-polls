@@ -12,6 +12,18 @@ https://cpske.github.io/ISP) course at Kasetsart University.
 
 to be added.
 
+## Demo Super Users
+
+|   Username  | Password        |
+|-------------|-----------------|
+|   reoreggie   | 1234 |
+
+## Demo Users
+|   Username  | Password        |
+|-------------|-----------------|
+|   EXUser1   | EXPass1 |
+|   EXUser2   | EXPass2 |
+
 ## Project Documents
 
 All project documents are in the [Project Wiki](../../wiki/Home).
