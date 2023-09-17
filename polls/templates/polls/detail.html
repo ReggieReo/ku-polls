@@ -6,22 +6,38 @@
 <form action="{% url 'polls:vote' question.id %}" method="post">
   {% csrf_token %}
   <fieldset>
+
+    <legend>
+      <div class="logout">
+        {% if user.is_authenticated %}
+          <p>Welcome back {{user.username}}</a>, <a href="{% url 'logout' %}">Logout</a></p>
+        {% else %}
+          <p>Please <a href="{% url 'login' %}">Login</a> to vote</p>
+        {% endif %}
+      </div>
+    </legend>
+
     <legend><h1>{{ question.question_text }}</h1></legend>
     {% if error_message %}
     <p><strong>{{ error_message }}</strong></p>
     {% endif %} {% for choice in question.choice_set.all %}
+
     <input
       type="radio"
       name="choice"
       id="choice{{ forloop.counter }}"
-      value="{{ choice.id }}"
+      value="{{ choice.id }}"{% if choice == select_choice %}checked{% endif %}
     />
+
     <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+
     {% endfor %}
   </fieldset>
-    <input type="submit" value="Vote" />
-    <br />
-    <a href="{% url 'polls:results' question.id %}">Results</a><br />
-    <a href="{% url 'polls:index' %}"> Back to List of Polls</a>
-</form>
+    <div class="back">
+      <input type="submit" value="Vote" />
+      <br />
+      <a href="{% url 'polls:results' question.id %}">Results</a><br />
+      <a href="{% url 'polls:index' %}"> Back to List of Polls</a>
+    </div>
+  </form>
 </div>

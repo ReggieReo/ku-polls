@@ -62,7 +62,7 @@ ROOT_URLCONF = "mysite.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR/"templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -91,6 +91,11 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+AUTHENTICATION_BACKENDS = [
+    # username & password authentication
+   'django.contrib.auth.backends.ModelBackend',
+]
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -107,6 +112,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Where yo recdirect visitor after login or logout
+LOGIN_REDIRECT_URL = 'polls:index'    # after login, show list of polls
+LOGOUT_REDIRECT_URL = 'login'         # after logout, direct to where?
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
