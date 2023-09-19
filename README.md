@@ -8,9 +8,42 @@ additional features.
 This app was created as part of the [Individual Software Process](
 https://cpske.github.io/ISP) course at Kasetsart University.
 
-## Install and Run
+## Install
 
-to be added.
+For installation instructions, please refer to [Installation.md](./Installation.md).
+
+##  Run
+
+Create a Virtual Environment and Install Dependencies before running the app
+
+Navigate to the project directory:
+```bash
+cd [YOUR_PROJECT_NAME]
+```
+Create a virtual environment:
+```bash
+python -m venv venv
+```
+Activate the virtual environment:
+* Linux/macOS:
+```bash
+source venv/bin/activate
+```
+* Windows:
+```bash
+.\venv\Scripts\activate
+```
+
+Install the required dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+To run the app
+```bash
+python ./manage.py runserver
+```
+
 
 ## Demo Super Users
 
