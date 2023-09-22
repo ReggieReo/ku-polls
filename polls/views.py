@@ -10,33 +10,33 @@ from .models import Question, Choice, Vote
 
 
 class IndexView(generic.ListView):
+    """Class based View for Index."""
+
     template_name = "polls/index.html"
     context_object_name = "latest_question_list"
 
     def get_queryset(self):
-        """
-        Return the last five published questions (not including those set to be
-        published in the future).
-        """
+        """Return the last five published questions (not including those set to be published in the future)."""
         return Question.objects.filter(pub_date__lte=timezone.now()).order_by(
             "-pub_date"
         )
 
 
 class DetailView(generic.DetailView):
+    """Class base View for Detail with get method for handling get request."""
+
     model = Question
     template_name = "polls/detail.html"
 
     def get_queryset(self):
-        """
-        Excludes any questions that aren't published yet.
-        """
+        """Excludes any questions that aren't published yet."""
         return Question.objects.filter(pub_date__lte=timezone.now())
 
     def get(self, request, pk):
-        """
-        Return get request from the user. If the requested question does not
-        exist or published redirect to index page.
+        """Handle get request from the user.
+
+        If the requested question does not exist or published redirect
+        to index page.
         """
         this_user = request.user
 
@@ -76,15 +76,17 @@ class DetailView(generic.DetailView):
 
 
 class ResultsView(generic.DetailView):
+    """Render results template when got Get request from visitor."""
+
     model = Question
     template_name = "polls/results.html"
 
 
 @login_required
 def vote(request, question_id):
-    """
-    Add vote count to voted choice, and show error message to user if user
-    doesn't select any choice.
+    """Add vote count to question by using Vote model.
+
+    show error message to user if user doesn't select any choice.
     """
     question = get_object_or_404(Question, pk=question_id)
 
@@ -110,7 +112,6 @@ def vote(request, question_id):
         vote = Vote(user=this_user, choice=selected_choice)
 
     vote.save()
-    messages.success(request, f'You voted {selected_choice} successfully')
-
+    messages.success(request, f"You voted {selected_choice} successfully")
 
     return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
