@@ -5,12 +5,12 @@ from django.contrib.auth.models import User
 
 
 class Question(models.Model):
-    """
-    A class representing a question in a poll with attributes:
-        question_text : The text of the question.
-        pub_date : The date and time when the question was published.
-        end_date : The date and time of the last day of voting period,
-        if it is null, then voting is allowed anytime after pub_date.
+    """A class representing a question in a poll with attributes.
+
+    question_text : The text of the question.
+    pub_date : The date and time when the question was published.
+    end_date : The date and time of the last day of voting period,
+    if it is null, then voting is allowed anytime after pub_date.
     """
 
     question_text = models.CharField(max_length=200)
@@ -18,29 +18,26 @@ class Question(models.Model):
     end_date = models.DateTimeField("end date", null=True, blank=True, default=None)
 
     def was_published_recently(self):
-        """
-        Checks if the question was published recently.
-        Returns True if the question was published within the last day, False otherwise.
+        """Check if the question was published recently.
+
+        Returns True if the question was published within the last day,
+        False otherwise.
         """
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
     def __str__(self):
-        """
-        Returns a string text of the question.
-        """
+        """Return a string text of the question."""
         return self.question_text
 
     def is_published(self):
-        """
-        Returns True if the current date is on or after question’s publication date.
-        """
+        """Return True if the current date is on or after question’s publication date."""
         now = timezone.now()
         return now >= self.pub_date
 
     def can_vote(self):
-        """
-        returns True if voting is allowed for this question.
+        """Return True if voting is allowed for this question.
+
         the current date/time is between the pub_date and end_date
         """
         now = timezone.now()
@@ -53,10 +50,11 @@ class Question(models.Model):
 
 class Choice(models.Model):
     """
-    A class representing a choice for a question in a poll with Attributes:
-        question : The question to which this choice belongs.
-        choice_text : The text of the choice.
-        votes : The number of votes received for this choice.
+    A class representing a choice for a question in a poll with Attributes.
+
+    question : The question to which this choice belongs.
+    choice_text : The text of the choice.
+    votes : The number of votes received for this choice.
     """
 
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
@@ -65,14 +63,12 @@ class Choice(models.Model):
 
     @property
     def vote(self):
-        """count the votes for this choice"""
+        """Count the votes for this choice."""
         count = self.vote_set.count()
         return count
 
     def __str__(self):
-        """
-        Returns a string text of the choice.
-        """
+        """Return a string text of the choice."""
         return self.choice_text
 
 

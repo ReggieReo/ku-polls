@@ -1,0 +1,29 @@
+[
+{
+  "model": "polls.question",
+  "pk": 2,
+  "fields": {
+    "question_text": "What is your preferred text editor?",
+    "pub_date": "2023-09-03T10:16:59Z",
+    "end_date": null
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 3,
+  "fields": {
+    "question_text": "What is your favorite data structure?",
+    "pub_date": "2023-09-03T10:21:01Z",
+    "end_date": null
+  }
+},
+{
+  "model": "polls.question",
+  "pk": 4,
+  "fields": {
+    "question_text": "Is Elon Musk a good person?",
+    "pub_date": "2023-09-19T08:05:07Z",
+    "end_date": null
+  }
+}
+]

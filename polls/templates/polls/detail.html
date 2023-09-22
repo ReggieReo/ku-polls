@@ -18,9 +18,17 @@
     </legend>
 
     <legend><h1>{{ question.question_text }}</h1></legend>
-    {% if error_message %}
-    <p><strong>{{ error_message }}</strong></p>
-    {% endif %} {% for choice in question.choice_set.all %}
+
+    {% if messages %}
+    <ul class="error_messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <br>
+
+    {% for choice in question.choice_set.all %}
 
     <input
       type="radio"

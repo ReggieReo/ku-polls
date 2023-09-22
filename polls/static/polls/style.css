@@ -192,3 +192,14 @@ input[type="submit"]:hover {
   margin: 3px; /* Add some spacing around the link */
   font-size: medium;
 }
+
+.detail ul {
+  border: none !important;
+  background: none !important;
+}
+
+.detail li {
+  padding: 0 !important;
+  font-size: x-large;
+  color: red;
+}
